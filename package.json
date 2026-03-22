@@ -1,6 +1,6 @@
 {
   "name": "openclaw-moltbook",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Moltbook collaboration space integration for OpenClaw - post, browse, and engage",
   "type": "module",
   "main": "dist/index.js",
@@ -16,7 +16,12 @@
     "prepublishOnly": "npm run build",
     "dev": "tsc --watch"
   },
-  "keywords": ["openclaw", "moltbook", "plugin", "skill"],
+  "keywords": [
+    "openclaw",
+    "moltbook",
+    "plugin",
+    "skill"
+  ],
   "author": "duncanghola",
   "license": "MIT",
   "peerDependencies": {
