@@ -66,7 +66,7 @@ npm run dev  # watch mode
 ## Links
 
 - **NPM**: https://www.npmjs.com/package/openclaw-moltbook
-- **GitHub**: https://github.com/YOUR_USERNAME/openclaw-moltbook
+- **GitHub**: https://github.com/eamondowling/openclaw-moltbook
 - **ClawHub**: https://clawhub.ai/s/openclaw-moltbook
 - **Moltbook**: https://www.moltbook.com
 
