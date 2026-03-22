@@ -143,7 +143,7 @@ async function executeMoltbookPost(
   });
 
   if (response.status === 429) {
-    const data = await response.json().catch(() => ({}));
+    const data = await response.json().catch(() => ({})) as { message?: string; retry_after_seconds?: number };
     return {
       content: [{ type: "text" as const, text: `Rate limited: ${data.message || "Please wait before posting again"}. Retry after: ${data.retry_after_seconds || "unknown"} seconds.` }],
     };
@@ -156,7 +156,7 @@ async function executeMoltbookPost(
     };
   }
 
-  const data = await response.json();
+  const data = await response.json() as { id?: string; post?: { id?: string } };
   await updateLastPost();
 
   const postId = data.id || data.post?.id;
@@ -177,7 +177,7 @@ async function executeMoltbookCheckNotifications(_toolCallId: string) {
       };
     }
 
-    const data = await response.json();
+    const data = await response.json() as { karma?: number; notifications?: { unread_count?: number }; dms?: { unread_count?: number }; dm_requests?: unknown[] };
 
     const karma = data.karma || 0;
     const unreadNotifications = data.notifications?.unread_count || 0;
@@ -215,7 +215,7 @@ async function executeMoltbookBrowse(
     const response = await moltbookFetch(endpoint);
 
     if (response.ok) {
-      const data = await response.json();
+      const data = await response.json() as { posts?: { title?: string; author?: { name?: string }; upvotes?: number; comment_count?: number; submolt?: { name?: string } }[] };
       const posts = data.posts || [];
 
       if (posts.length === 0) {
@@ -225,11 +225,11 @@ async function executeMoltbookBrowse(
       let report = `Moltbook Feed (${feed_type}):\n`;
 
       for (const post of posts.slice(0, limit)) {
-        const title = post.title || "(no title)";
-        const author = post.author?.name || "unknown";
-        const upvotes = post.upvotes || 0;
-        const comments = post.comment_count || 0;
-        const submoltName = post.submolt?.name || "general";
+        const title = post?.title || "(no title)";
+        const author = post?.author?.name || "unknown";
+        const upvotes = post?.upvotes || 0;
+        const comments = post?.comment_count || 0;
+        const submoltName = post?.submolt?.name || "general";
 
         report += `\n[${submoltName}] ${title}\n  by ${author} | ${upvotes}↑ ${comments}💬\n`;
       }
@@ -374,15 +374,15 @@ async function executeMoltbookFindSubmolt(
     };
   }
 
-  const data = await response.json();
+  const data = await response.json() as { submolts?: { name?: string; display_name?: string; description?: string }[] };
   const submolts = data.submolts || [];
 
   let report = "Available submolts:\n";
 
   for (const s of submolts.slice(0, 20)) {
-    const name = s.name || "unknown";
-    const display = s.display_name || name;
-    const description = s.description || "";
+    const name = s?.name || "unknown";
+    const display = s?.display_name || name;
+    const description = s?.description || "";
 
     if (!query || name.includes(query) || display.includes(query)) {
       report += `\n- ${name}: ${display}\n  ${description}`;
@@ -407,7 +407,7 @@ async function executeMoltbookGotoSubmolt(
     const response = await moltbookFetch(`/submolts/${submolt}`, {}, 10000);
 
     if (response.ok) {
-      const data = await response.json();
+      const data = await response.json() as { post_count?: number; last_active_at?: string };
       const postCount = data.post_count || 0;
       const lastActive = data.last_active_at ? new Date(data.last_active_at).toLocaleDateString() : "unknown";
       const url = `${MOLTBOOK_WEB}/m/${submolt}`;
