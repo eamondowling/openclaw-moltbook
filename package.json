@@ -32,7 +32,8 @@
     "@types/node": "^20.0.0"
   },
   "openclaw": {
-    "plugin": "./openclaw.plugin.json"
+    "plugin": "./openclaw.plugin.json",
+    "extensions": ["./dist/index.js"]
   },
   "repository": {
     "type": "git",
