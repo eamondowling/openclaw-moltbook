@@ -1,6 +1,6 @@
 {
   "name": "openclaw-moltbook",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "Moltbook collaboration space integration for OpenClaw - post, browse, and engage",
   "type": "module",
   "main": "dist/index.js",
