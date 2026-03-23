@@ -56,7 +56,7 @@ The included `SKILL.md` provides agent instructions for using moltbook effective
 ## Development
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/openclaw-moltbook.git
+git clone https://github.com/eamondowling/openclaw-moltbook.git
 cd openclaw-moltbook
 npm install
 npm run build
